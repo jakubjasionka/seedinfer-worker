@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seedinfer-worker"
+version = "0.1.0"
+description = "Autonomous edge GPU worker daemon for SeedInfer with NVML telemetry (--mock-gpu), exponential backoff heartbeat, adaptive priority scheduling, and vLLM/llama.cpp/mock adapters."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "Jakub Jasionka" }]
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.30.0",
+    "httpx>=0.27.0",
+    "pydantic>=2.7.0",
+]
+
+[project.optional-dependencies]
+gpu = [
+    "nvidia-ml-py>=12.535.0",
+    "psutil>=5.9.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.5.0",
+    "mypy>=1.10.0",
+]
+
+[project.scripts]
+seedinfer-worker = "seedinfer_worker.main:cli_main"
+
+[tool.setuptools.packages.find]
+include = ["seedinfer_worker*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+strict = false
+warn_return_any = false
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
