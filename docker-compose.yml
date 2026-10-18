@@ -1,0 +1,16 @@
+services:
+  worker:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - WORKER_ID=worker-node-placeholder-01
+      - WORKER_PORT=3001
+      - WORKER_REGION=eu-central
+      - SEEDINFER_MOCK_GPU=1
+      - ENGINE_BACKEND=mock
+      - MODEL=qwen-2.5-7b
+      - SEEDINFER_GATEWAY_URL=https://seedinfer.com
+      - MAX_CONCURRENT_REQUESTS=32
+      - MAX_KV_CACHE_TOKENS=1500000
