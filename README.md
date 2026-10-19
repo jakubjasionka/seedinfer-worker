@@ -40,7 +40,7 @@ flowchart LR
 
 ## Quickstart
 
-### 1. Start with Docker Compose (`--mock-gpu` enabled by default)
+### 1. Start with Docker Compose (`--mock-gpu`: test fixture, not real telemetry)
 ```bash
 cp .env.example .env
 docker compose up --build -d
@@ -69,14 +69,7 @@ pytest -q
 
 ## Benchmarks
 
-Edge worker proxy overhead and priority scheduling latency under synthetic concurrency:
-
-| Workload Profile | Active Slots | Proxy Overhead p50 | Proxy Overhead p99 | Express Lane Priority Boost |
-| :--- | :--- | :--- | :--- | :--- |
-| Interactive Stream (`<= p50` tokens) | 8 / 32 | 0.6 ms | 1.4 ms | Priority `0` (Express) |
-| Long-Context Batch (`> p90` tokens) | 26 / 32 | 0.9 ms | 2.1 ms | Priority `15` (Background) |
-
-*(Placeholder for multi-GPU vLLM NVFP4 / FP8 KV-cache throughput benchmarks.)*
+No measured benchmark results are published yet. This repository intentionally contains no synthetic or estimated performance numbers. Benchmark tables will be added only after they are produced by a reproducible run on named hardware, with the exact command and raw output committed alongside.
 
 ---
 
